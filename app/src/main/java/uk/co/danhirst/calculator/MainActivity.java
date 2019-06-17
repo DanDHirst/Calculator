@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView displayOperation;
 
     private Double operand1;
-    private Double operand2;
     private String pendingOperation = "=";
 
     @Override
@@ -89,35 +88,36 @@ public class MainActivity extends AppCompatActivity {
         buttonPlus.setOnClickListener(opListener);
     }
     private void performOperation(Double value, String operation){
+
         if(operand1 == null){
             operand1 = value;
         }
         else{
-            operand2 = value;
+
 
             if(pendingOperation.equals("=")){
                 pendingOperation = operation;
             }
             switch(pendingOperation){
                 case "=":
-                    operand1 = operand2;
+                    operand1 = value;
                     break;
                 case "/":
-                    if (operand2 ==0){
+                    if (value ==0){
                         operand1 = 0.0;
                     }
                     else{
-                        operand1 /= operand2;
+                        operand1 /= value;
                     }
                     break;
                 case "X":
-                    operand1 *= operand2;
+                    operand1 *= value;
                     break;
                 case "-":
-                    operand1 -= operand2;
+                    operand1 -= value;
                     break;
                 case "+":
-                    operand1 += operand2;
+                    operand1 += value;
                     break;
 
             }
