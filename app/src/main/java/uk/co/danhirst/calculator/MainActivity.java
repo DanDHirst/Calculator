@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonMinus = (Button) findViewById(R.id.buttonMinus);
         Button buttonMult = (Button) findViewById(R.id.buttonMult);
         Button buttonDot = (Button) findViewById(R.id.buttonDot);
+        Button buttonPlusorMinus = (Button) findViewById(R.id.buttonPlusorMinus);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -71,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 Button b = (Button) view;
                 String op = b.getText().toString();
                 String value = newNumber.getText().toString();
-                try{
+                try {
                     Double doubleValue = Double.valueOf(value);
-                    performOperation(doubleValue,op);
+                    performOperation(doubleValue, op);
 
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     newNumber.setText("");
                 }
 
@@ -90,8 +91,28 @@ public class MainActivity extends AppCompatActivity {
         buttonMult.setOnClickListener(opListener);
         buttonMinus.setOnClickListener(opListener);
         buttonPlus.setOnClickListener(opListener);
-    }
 
+        buttonPlusorMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = newNumber.getText().toString();
+                if (value.length() == 0) {
+                    newNumber.setText("-");
+                } else {
+                    try {
+                        Double doubleValue = Double.valueOf(value);
+                        doubleValue *= -1;
+                        newNumber.setText(doubleValue.toString());
+
+                    } catch(NumberFormatException e){
+                        newNumber.setText("");
+                    }
+                }
+
+            }
+        });
+
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(STATE_PENDING_OPERATION, pendingOperation);
